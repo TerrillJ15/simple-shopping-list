@@ -47,43 +47,10 @@
       <h1 class="text-center my-4">Shopping List</h1>
       <table class="table table-responsive">
         <thead>
-          <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">SubTotal</th>
-            <th scope="col"></th>
-          </tr>
+          <tr></tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="item">Cheese</td>
-            <td class="price">$5</td>
-            <td class="quantity"></td>
-            <td class="subTotal"></td>
-            <td>
-              <button class="btn btn-light btn-sm delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="item">Eggs</td>
-            <td class="price">$3</td>
-            <td class="quantity"></td>
-            <td class="subTotal"></td>
-            <td>
-              <button class="btn btn-light btn-sm delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
-            <td class="item">Steak</td>
-            <td class="price">$25</td>
-            <td class="quantity"></td>
-            <td class="subTotal"></td>
-            <td>
-              <button class="btn btn-light btn-sm delete">Delete</button>
-            </td>
-          </tr>
-          <tr>
+          <tr id="row-add">
             <td class="item">
               <input
                 id="add-input"
@@ -93,14 +60,14 @@
             </td>
             <td class="price">
               <input
-                id="add-input"
+                id="price-input"
                 class="form-control"
                 placeholder="Price"
               />
             </td>
             <td class="quantity">
               <input
-                id="add-input"
+                id="quanity-input"
                 class="form-control"
                 placeholder="Quantity"
               />
@@ -115,6 +82,17 @@
                 Add
               </button>
             </td>
+          </tr>
+          <tr id="row-totals">
+            <td class="item">Totals:</td>
+            <td class="price">
+              <p id="price-total">$0.00</p>
+            </td>
+            <td class="quantity">
+              <p id="quanity-total">0</p>
+            </td>
+            <td class="subTotal">$0.00</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
