@@ -53,16 +53,7 @@ window.onload = function () {
 };
 
 function renderTable() {
-  renderHeader();
   renderData();
-}
-
-function renderHeader() {
-  for (let i = 0; i < COLUMNS.length; i++) {
-    $('thead > tr').append(
-      `<th id="header-${COLUMNS[i].value}" scope="col">${COLUMNS[i].title}</th>`,
-    );
-  }
 }
 
 function renderData() {
