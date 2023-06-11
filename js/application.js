@@ -58,6 +58,7 @@ window.onload = function () {
 
 function renderTable() {
   renderData();
+  updateTotals();
 }
 
 function renderData() {
@@ -94,9 +95,24 @@ function addRow() {
   const row = {
     id: Date.now(),
     item,
-    price,
-    quantity,
+    price: Number.parseFloat(price),
+    quantity: Number.parseFloat(quantity),
   };
   data.push(row);
   renderRow(row);
+  updateTotals();
+}
+
+function updateTotals() {
+  let price = 0;
+  let quantity = 0;
+  let subTotal = 0;
+  for (let i = 0; i < data.length; i++) {
+    price += data[i].price;
+    quantity += data[i].quantity;
+    subTotal += data[i].price * data[i].quantity;
+  }
+  $('#price-total').text(`$${price}`);
+  $('#quantity-total').text(`$${quantity}`);
+  $('#total').text(`$${subTotal}`);
 }
