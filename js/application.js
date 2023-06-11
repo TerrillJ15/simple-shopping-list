@@ -1,3 +1,11 @@
+const formatDollar = (row, key) => {
+  return `$${row[key]}`;
+};
+
+const getSubtotal = row => {
+  return `$${row.price * row.quantity}`;
+};
+
 const COLUMNS = [
   {
     title: 'Item',
@@ -6,6 +14,7 @@ const COLUMNS = [
   {
     title: 'Price',
     value: 'price',
+    format: formatDollar,
   },
   {
     title: 'Quantity',
@@ -14,6 +23,7 @@ const COLUMNS = [
   {
     title: 'Sub Total',
     value: 'subTotal',
+    format: getSubtotal,
   },
   {
     title: '',
@@ -26,25 +36,19 @@ let data = [
     id: 0,
     item: 'Cheese',
     price: 5,
-    quantity: undefined,
-    subTotal: undefined,
-    button: undefined,
+    quantity: 2,
   },
   {
     id: 1,
     item: 'Eggs',
     price: 3,
-    quantity: undefined,
-    subTotal: undefined,
-    button: undefined,
+    quantity: 3,
   },
   {
     id: 2,
     item: 'Steak',
     price: 25,
-    quantity: undefined,
-    subTotal: undefined,
-    button: undefined,
+    quantity: 1,
   },
 ];
 
@@ -68,7 +72,31 @@ function renderRow(row) {
     $(`#row-${row.id}`).append(
       `<td id="cell-${row.id}-${COLUMNS[i].value}" class="${
         COLUMNS[i].value
-      }">${row[COLUMNS[i].value] ?? ''}</td>`,
+      }">${
+        // data value; use format function if provided, otherwise return data as is
+        COLUMNS[i].format
+          ? COLUMNS[i].format(row, [COLUMNS[i].value])
+          : row[COLUMNS[i].value] ?? ''
+      }</td>`,
     );
   }
+}
+
+function addRow() {
+  // get values from the inputs
+  const item = $('#add-input').val();
+  const price = $('#price-input').val();
+  const quantity = $('#quantity-input').val();
+
+  // if any of the values are invalid, then do not add
+  if (!item || isNaN(price) || isNaN(quantity)) return;
+
+  const row = {
+    id: Date.now(),
+    item,
+    price,
+    quantity,
+  };
+  data.push(row);
+  renderRow(row);
 }

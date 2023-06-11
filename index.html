@@ -79,7 +79,7 @@
           </tr>
         </thead>
         <tbody>
-          <!-- dynamic data will be added here -->
+          <!-- -->
           <tr id="row-add">
             <td class="item">
               <input
@@ -93,13 +93,15 @@
                 id="price-input"
                 class="form-control"
                 placeholder="Price"
+                type="number"
               />
             </td>
             <td class="quantity">
               <input
-                id="quanity-input"
+                id="quantity-input"
                 class="form-control"
                 placeholder="Quantity"
+                type="number"
               />
             </td>
             <td class="subTotal"></td>
@@ -108,6 +110,7 @@
                 id="add-button"
                 type="button"
                 class="btn btn-sm btn-primary"
+                onclick="addRow()"
               >
                 Add
               </button>
