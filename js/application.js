@@ -128,6 +128,6 @@ function updateTotals() {
     subTotal += data[i].price * data[i].quantity;
   }
   $('#price-total').text(`$${price}`);
-  $('#quantity-total').text(`$${quantity}`);
+  $('#quantity-total').text(quantity);
   $('#total').text(`$${subTotal}`);
 }
