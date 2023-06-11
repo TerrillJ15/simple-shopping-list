@@ -25,10 +25,6 @@ const COLUMNS = [
     value: 'subTotal',
     format: getSubtotal,
   },
-  {
-    title: '',
-    value: 'button',
-  },
 ];
 
 let data = [
@@ -68,7 +64,8 @@ function renderData() {
 }
 
 function renderRow(row) {
-  $('#row-add').before(`<tr id="row-${row.id}"></tr>`);
+  const rowId = `row-${row.id}`;
+  $('#row-add').before(`<tr id="${rowId}"></tr>`);
   for (let i = 0; i < COLUMNS.length; i++) {
     $(`#row-${row.id}`).append(
       `<td id="cell-${row.id}-${COLUMNS[i].value}" class="${
@@ -81,6 +78,18 @@ function renderRow(row) {
       }</td>`,
     );
   }
+  $(`#row-${row.id}`).append(`
+    <td>
+        <button
+            id="cell-${row.id}-delete"
+            type="button"
+            class="btn btn-sm btn-danger"
+            onclick="deleteRow(${row.id})"
+        >
+            Delete
+        </button>
+    </td>
+  `);
 }
 
 function addRow() {
@@ -100,6 +109,12 @@ function addRow() {
   };
   data.push(row);
   renderRow(row);
+  updateTotals();
+}
+
+function deleteRow(rowId) {
+  $(`#row-${rowId}`).remove();
+  data = data.filter(r => r.id !== rowId);
   updateTotals();
 }
 
