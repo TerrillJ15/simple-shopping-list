@@ -99,7 +99,11 @@ function addRow() {
   const quantity = $('#quantity-input').val();
 
   // if any of the values are invalid, then do not add
-  if (!item || isNaN(price) || isNaN(quantity)) return;
+  if (!item || isNaN(price) || isNaN(quantity)) {
+    $('#row-add > td').css('background-color', 'red');
+    return;
+  }
+  $('#row-add > td').css('background-color', 'white');
 
   const row = {
     id: Date.now(),
@@ -110,6 +114,10 @@ function addRow() {
   data.push(row);
   renderRow(row);
   updateTotals();
+
+  $('#add-input').val('');
+  $('#price-input').val('');
+  $('#quantity-input').val('');
 }
 
 function deleteRow(rowId) {
