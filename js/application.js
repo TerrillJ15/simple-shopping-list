@@ -70,9 +70,14 @@ let data = [
 
 /**
  * Called is when the page is loaded.
+ * Loads data if previously used.
  * Renders the table.
  */
 window.onload = function () {
+  const storeData = window.localStorage.getItem('simple-shopping-list');
+  if (storeData) {
+    data = JSON.parse(storeData);
+  }
   renderTable();
 };
 
@@ -157,6 +162,7 @@ function addRow() {
   data.push(row);
   renderRow(row);
   updateTotals();
+  updateStoredData();
 
   $('#add-input').val('');
   $('#price-input').val('');
@@ -172,6 +178,7 @@ function deleteRow(rowId) {
   $(`#row-${rowId}`).remove();
   data = data.filter(r => r.id !== rowId);
   updateTotals();
+  updateStoredData();
 }
 
 /**
@@ -189,4 +196,11 @@ function updateTotals() {
   $('#price-total').text(`$${price}`);
   $('#quantity-total').text(quantity);
   $('#total').text(`$${subTotal}`);
+}
+
+/**
+ * Updates the data in the local storage.
+ */
+function updateStoredData() {
+  window.localStorage.setItem('simple-shopping-list', JSON.stringify(data));
 }
