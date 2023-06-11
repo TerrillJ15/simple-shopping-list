@@ -1,0 +1,8 @@
+body {
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+}
+
+#row-totals > td {
+  background-color: rgba(246, 255, 0, 0.696);
+}
