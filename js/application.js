@@ -1,11 +1,28 @@
+/**
+ * Formats the row value into a dollar format.
+ *
+ * @param {Row} row Current row with values.
+ * @param {String} key The key of the value to use.
+ * @returns The formatted dollar string.
+ */
 const formatDollar = (row, key) => {
   return `$${row[key]}`;
 };
 
+/**
+ * Calculate the subtotal based on the price and the quantity
+ * and returns a formatted dollar string.
+ *
+ * @param {Row} row Current row with the values.
+ * @returns The subtotal as a formatted dollar string.
+ */
 const getSubtotal = row => {
   return `$${row.price * row.quantity}`;
 };
 
+/**
+ * The array of column objects.
+ */
 const COLUMNS = [
   {
     title: 'Item',
@@ -27,6 +44,9 @@ const COLUMNS = [
   },
 ];
 
+/**
+ * Array of stored row items. Each row item is a @type {Row} object.
+ */
 let data = [
   {
     id: 0,
@@ -48,21 +68,39 @@ let data = [
   },
 ];
 
+/**
+ * Called is when the page is loaded.
+ * Renders the table.
+ */
 window.onload = function () {
   renderTable();
 };
 
+/**
+ * Renders the dynamic aspects of the table which includes the data and footer tables.
+ */
 function renderTable() {
   renderData();
   updateTotals();
 }
 
+/**
+ * Renders all the data as table rows.
+ */
 function renderData() {
   for (let i = 0; i < data.length; i++) {
     renderRow(data[i]);
   }
 }
 
+/**
+ * Renders each row with the proper cells.
+ * Each cell is render for it's data value and
+ * will be formatted if desired. Each row
+ * will have a delete button at the end.
+ *
+ * @param {Row} row Current row with the values.
+ */
 function renderRow(row) {
   const rowId = `row-${row.id}`;
   $('#row-add').before(`<tr id="${rowId}"></tr>`);
@@ -92,6 +130,11 @@ function renderRow(row) {
   `);
 }
 
+/**
+ * Gets the inputs and adds a row when valid.
+ * If invalid then the inputs are highlighted red.
+ * When an add is successful then inputs are reset.
+ */
 function addRow() {
   // get values from the inputs
   const item = $('#add-input').val();
@@ -120,12 +163,20 @@ function addRow() {
   $('#quantity-input').val('');
 }
 
+/**
+ * Remove the row for the provided rowId.
+ *
+ * @param {Number} rowId ID of the row.
+ */
 function deleteRow(rowId) {
   $(`#row-${rowId}`).remove();
   data = data.filter(r => r.id !== rowId);
   updateTotals();
 }
 
+/**
+ * Calculate and updates the values on the view.
+ */
 function updateTotals() {
   let price = 0;
   let quantity = 0;
